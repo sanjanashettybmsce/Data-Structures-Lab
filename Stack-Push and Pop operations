@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 4
+int stack[N];
+int top=-1;
+
+void push(){
+    int item;
+    printf("enter the element to be inserted\n");
+    scanf("%d",&item);
+    top++;
+    stack[top]=item;
+}
+void pop(){
+    printf("topmost element will be deleted\n");
+    top--;
+}
+void display(){
+    int i;
+    printf("the new stack is:\n");
+    for(i=N;i>=0;i--){
+        printf("%d",stack[i]);
+    }
+}
+void main(){
+    int choice;
+    printf("enter 1 to push, enter 2 to pop, any key to exit\n");
+    scanf("%d",&choice);
+    while(1){
+    switch(choice){
+        case 1: if(top>=N){
+                printf("stack overflow");
+            }
+            else{
+                push();
+                display();
+            }
+            break;
+        case 2: if(top<0){
+                printf("stack underflow");
+        }
+        else{
+            pop();
+            display();
+        }
+        break;
+        default: exit(0);
+    }
+    printf("enter the choice\n");
+    scanf("%d",&choice);
+    }
+}
