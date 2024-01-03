@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 4
+int q[N];
+int REAR=-1;
+int FRONT=-1;
+void enq();
+void deq();
+void display();
+
+void enq(){
+    int item;
+    printf("enter element to insert:\n");
+    scanf("%d",&item);
+    if(FRONT==-1 && REAR==-1){
+        FRONT=REAR=0;
+        q[REAR]=item;
+    }
+    else if((REAR+1)%N==FRONT){
+        printf("queue overflow!\n");
+    }
+    else{
+        REAR=(REAR+1)%N;
+        q[REAR]=item;
+    }
+}
+void deq(){
+    if(FRONT==-1 && REAR==-1){
+        printf("empty queue!\n");
+    }
+    else if(FRONT==REAR){
+        printf("the deleted element is: %d\n",q[FRONT]);
+        FRONT=REAR=-1;
+    }
+    else{
+        printf("deleted element:%d\n",q[FRONT]);
+        FRONT=(FRONT+1)%N;
+    }
+}
+void display(){
+    int i;
+    for(i=FRONT;i<=REAR;i++){
+        printf("%d\t",q[i]);
+    }
+}
+void main(){
+    int choice;
+    while(1){
+    printf("enter 1. insert 2. delete 3. display\n");
+    scanf("%d",&choice);
+    switch(choice){
+        case 1: enq();
+            break;
+        case 2: deq();
+            break;
+        case 3: display();
+            break;
+        default: printf("invalid entry\n");
+            exit(0);
+    }
+    }
+}
