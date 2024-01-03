@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 4
+
+int q[N];
+int REAR = -1;
+int FRONT = -1;
+
+void enq();
+void deq();
+void display();
+
+void enq() {
+    if (REAR == N - 1 || FRONT > REAR) {
+        printf("Overflow!\n");
+    } else {
+        int item;
+        printf("Enter the element to insert:\n");
+        scanf("%d", &item);
+        if (REAR == -1 && FRONT == -1) {
+            REAR++;
+            FRONT++;
+        }
+        REAR++;
+        q[REAR] = item;
+    }
+}
+
+void deq() {
+    int val;
+    if (FRONT == -1 || FRONT > REAR) {
+        printf("Queue empty!\n");
+    } else {
+        val = q[FRONT];
+        FRONT++;
+        printf("Element deleted is %d\n", val);
+    }
+}
