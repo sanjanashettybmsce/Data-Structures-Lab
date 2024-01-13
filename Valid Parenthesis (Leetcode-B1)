@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define N 100
+
+int top = -1;
+char st[N];
+
+void push(char);
+char pop();
+
+void check(char input[]) {
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    char closing[N];
+    char open[N];
+
+    while (input[i] != '\0') {
+        if (input[0] != '(' && input[0] != '{' && input[0] != '[') {
+            printf("Invalid start of expression\n");
+            exit(1);
+        } else if (input[i] == '(' || input[i] == '{' || input[i] == '[' || input[i] == ')' || input[i] == '}' || input[i] == ']') {
+            push(input[i]);
+            i++;
+        }
+    }
+
+    while (top != -1) {
+        if (st[top] == ')' || st[top] == '}' || st[top] == ']') {
+            closing[j] = pop();
+            j++;
+        } else if (st[top] == '(' || st[top] == '{' || st[top] == '[') {
+            open[k] = pop();
+            k++;
+        }
+    }
+
+    k = 0;
+    j = 0;
+    while (open[k] != '\0' && closing[j] != '\0') {
+        if ((open[k] == '(' && closing[j] == ')') || (open[k] == '{' && closing[j] == '}') || (open[k] == '[' && closing[j] == ']')) {
+            j++;
+            k++;
+        } else {
+            printf("False\n");
+            exit(1);
+        }
+    }
+    printf("True\n");
+}
+
+void push(char item) {
+    if (top == N - 1) {
+        printf("Stack overflow\n");
+    } else {
+        top++;
+        st[top] = item;
+    }
+}
+
+char pop() {
+    if (top == -1) {
+        printf("Stack underflow\n");
+        exit(1);
+    } else {
+        char val = st[top];
+        top--;
+        return val;
+    }
+}
+
+int main() {
+    char input[50];
+    printf("Input: ");
+    scanf("%s", input);
+    check(input);
+
+    return 0;
+}
