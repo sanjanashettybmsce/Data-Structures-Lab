@@ -39,10 +39,21 @@ void deq(){
 }
 void display(){
     int i;
-    for(i=FRONT;i<=REAR;i++){
-        printf("%d\t",q[i]);
+    if (FRONT == -1 && REAR == -1) {
+        printf("Queue is empty\n");
     }
+    else {
+        printf("Queue elements: ");
+        i = FRONT;
+        while (i != REAR) {
+            printf("%d ", q[i]);
+            i = (i + 1) % N;
+        }
+        printf("%d", q[REAR]); // Print the last element
+    }
+    printf("\n");
 }
+
 void main(){
     int choice;
     while(1){
